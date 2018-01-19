@@ -1,0 +1,4 @@
+*.sublime-workspace
+*.pyc
+.cache
+.secret/api_key.json
