@@ -1,6 +1,5 @@
-from binance.client import Client
 import json
-from pathlib import Path
+from util.binance import get_client
 
 
 def add_arg_parser(subparsers):
@@ -10,13 +9,6 @@ def add_arg_parser(subparsers):
     parser.set_defaults(
         func=command,
     )
-
-
-def get_client():
-    secret_dir = Path(__file__).parents[2] / '.secret'
-    api_key_file = secret_dir / 'api_key.json'
-    secret = json.load(api_key_file.open())
-    return Client(secret['api_key'], secret['api_secret'])
 
 
 def command():
