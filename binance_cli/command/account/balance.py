@@ -3,8 +3,8 @@ from util.binance import get_client
 
 
 def add_arg_parser(subparsers):
-    parser = subparsers.add_parser('order',
-        help='Order related commands',
+    parser = subparsers.add_parser('balance',
+        help='Show the coin balances of the account',
     )
     parser.set_defaults(
         func=command,
@@ -14,9 +14,7 @@ def add_arg_parser(subparsers):
 def command():
     client = get_client()
     print(json.dumps(
-        client.get_all_orders(
-            symbol='NEOETH',
-        ),
+        client.get_account(),
         indent=2,
         sort_keys=True,
     ))
