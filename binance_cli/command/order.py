@@ -7,6 +7,9 @@ def add_arg_parser(subparsers):
     parser = subparsers.add_parser('order',
         help='Order related commands',
     )
+    parser.set_defaults(
+        func=command,
+    )
 
 
 def get_client():
