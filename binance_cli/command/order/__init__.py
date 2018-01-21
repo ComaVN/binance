@@ -1,6 +1,4 @@
-import re
-import sys
-from . import list
+import importlib
 
 
 def add_arg_parser(subparsers):
@@ -14,6 +12,9 @@ def add_arg_parser(subparsers):
         metavar='<subcommand>',
         help='Order subcommand to execute',
     )
-    for module_name, module in sys.modules.items():
-        if re.match(__package__ + r'\.([a-z][a-z0-9]*)$', module_name):
-            module.add_arg_parser(subparsers)
+    subcommands = {
+        'list',
+    }
+    for subcommand in subcommands:
+        module = importlib.import_module(__package__ + '.' + subcommand)
+        module.add_arg_parser(subparsers)

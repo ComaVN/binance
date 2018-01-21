@@ -1,7 +1,5 @@
 import argparse
-import re
-import sys
-from .command import *
+import importlib
 
 
 def main():
@@ -15,9 +13,13 @@ def main():
         metavar='<command>',
         help='Command to execute',
     )
-    for module_name, module in sys.modules.items():
-        if re.match(__package__ + r'\.command\.([a-z][a-z0-9]*)$', module_name):
-            module.add_arg_parser(subparsers)
+    commands = {
+        'account',
+        'order',
+    }
+    for command in commands:
+        module = importlib.import_module(__package__ + '.command.' + command)
+        module.add_arg_parser(subparsers)
 
     args = parser.parse_args()
     args.func()
