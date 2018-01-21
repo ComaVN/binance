@@ -22,4 +22,4 @@ def main():
         module.add_arg_parser(subparsers)
 
     args = parser.parse_args()
-    args.func()
+    args.func(args)

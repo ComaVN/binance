@@ -1,5 +1,6 @@
-import json
+from collections import OrderedDict
 from util.binance import get_client
+from util import cli_formatter
 
 
 def add_arg_parser(subparsers):
@@ -9,14 +10,24 @@ def add_arg_parser(subparsers):
     parser.set_defaults(
         func=command,
     )
+    parser.add_argument('--format', '-f',
+        choices=[
+            'json',
+            'plain',
+        ],
+        default='plain',
+    )
 
 
-def command():
+def command(args):
     client = get_client()
-    print(json.dumps(
-        client.get_all_orders(
-            symbol='NEOETH',
-        ),
-        indent=2,
-        sort_keys=True,
-    ))
+    orders = client.get_all_orders(
+        symbol='NEOETH',
+    )
+    result = [
+        OrderedDict(sorted(row.items(),
+            key=lambda t: t[0],
+        ))
+        for row in orders
+    ]
+    print(cli_formatter.format(result, args.format))
