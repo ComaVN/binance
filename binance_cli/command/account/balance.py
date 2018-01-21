@@ -17,6 +17,9 @@ def add_arg_parser(subparsers):
         ],
         default='plain',
     )
+    parser.add_argument('--all', '-a',
+        action='store_true',
+    )
 
 
 def command(args):
@@ -27,5 +30,6 @@ def command(args):
             key=lambda t: t[0],
         ))
         for row in account['balances']
+        if args.all or float(row['free']) > 0 or float(row['locked']) > 0
     ]
     print(cli_formatter.format(result, args.format))
