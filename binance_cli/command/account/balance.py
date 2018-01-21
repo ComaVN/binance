@@ -32,4 +32,7 @@ def command(args):
         for row in account['balances']
         if args.all or float(row['free']) > 0 or float(row['locked']) > 0
     ]
+    result.sort(
+        key=lambda row: row['asset'],
+    )
     print(cli_formatter.format(result, args.format))
