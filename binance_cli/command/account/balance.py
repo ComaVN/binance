@@ -16,9 +16,11 @@ def add_arg_parser(subparsers):
             'plain',
         ],
         default='plain',
+        help='How to display the result',
     )
     parser.add_argument('--all', '-a',
         action='store_true',
+        help='Show the balance for all coins. The default is to only show non-zero balances',
     )
 
 

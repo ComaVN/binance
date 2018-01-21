@@ -15,6 +15,9 @@ def format(value, format):
 def plain_formatter(value):
     # RH: TODO: support more kinds of values
     # value is a list of flat dictionaries, all having the same keys
+    if not value:
+        return
+
     table = PrettyTable()
     fields = list(value[0])
     table.field_names = fields
