@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  cli:
+    volumes:
+      - ./container/cli/bin:/usr/local/src/binance/cli/bin:ro
+      - ./container/cli/binance_cli:/usr/local/src/binance/cli/binance_cli:ro
+      - ./container/cli/util:/usr/local/src/binance/cli/util:ro

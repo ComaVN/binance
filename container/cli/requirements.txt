@@ -1,0 +1,3 @@
+PTable
+pytest
+python-binance

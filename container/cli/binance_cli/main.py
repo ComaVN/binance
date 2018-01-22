@@ -7,7 +7,7 @@ def main():
         description='Manage Binance trading through the REST API.',
     )
     parser.set_defaults(
-        func=parser.print_help,
+        func=lambda dummy: parser.print_help(),
     )
     subparsers = parser.add_subparsers(
         metavar='<command>',

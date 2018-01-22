@@ -2,18 +2,18 @@ import importlib
 
 
 def add_arg_parser(subparsers):
-    parser = subparsers.add_parser('order',
-        help='Order related commands',
+    parser = subparsers.add_parser('account',
+        help='Account related commands',
     )
     parser.set_defaults(
-        func=parser.print_help,
+        func=lambda dummy: parser.print_help(),
     )
     subparsers = parser.add_subparsers(
         metavar='<subcommand>',
-        help='Order subcommand to execute',
+        help='Account subcommand to execute',
     )
     subcommands = {
-        'list',
+        'balance',
     }
     for subcommand in subcommands:
         module = importlib.import_module(__package__ + '.' + subcommand)
