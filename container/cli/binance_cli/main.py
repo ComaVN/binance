@@ -16,6 +16,7 @@ def main():
     commands = {
         'account',
         'order',
+        'ticker',
         'trade',
     }
     for command in commands:
