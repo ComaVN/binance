@@ -5,22 +5,22 @@ from util import cli_formatter
 
 
 def add_arg_parser(subparsers):
-    parser = subparsers.add_parser('24hr',
-        help='Show 24 hour price change statistics',
+    parser = subparsers.add_parser("24hr",
+        help="Show 24 hour price change statistics",
     )
     parser.set_defaults(
         func=command,
     )
-    parser.add_argument('symbol',
-        help='Symbol for the trading pair, eg. NEOETH for NEO / Ethereum',
+    parser.add_argument("symbol",
+        help="Symbol for the trading pair, eg. NEOETH for NEO / Ethereum",
     )
-    parser.add_argument('--format', '-f',
+    parser.add_argument("--format", "-f",
         choices=[
-            'json',
-            'plain',
+            "json",
+            "plain",
         ],
-        default='plain',
-        help='How to display the result',
+        default="plain",
+        help="How to display the result",
     )
 
 

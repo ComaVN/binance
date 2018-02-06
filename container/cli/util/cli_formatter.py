@@ -4,11 +4,11 @@ from prettytable import PrettyTable
 
 def format(value, format):
     return {
-        'json': lambda v: json.dumps(v,
+        "json": lambda v: json.dumps(v,
             indent=2,
             sort_keys=True,
         ),
-        'plain': plain_formatter,
+        "plain": plain_formatter,
     }[format](value)
 
 

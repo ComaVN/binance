@@ -5,26 +5,26 @@ from util import cli_formatter
 
 
 def add_arg_parser(subparsers):
-    parser = subparsers.add_parser('list',
-        help='Show a list of orders',
+    parser = subparsers.add_parser("list",
+        help="Show a list of orders",
     )
     parser.set_defaults(
         func=command,
     )
-    parser.add_argument('symbol',
-        help='Symbol for the trading pair, eg. NEOETH for NEO / Ethereum trading orders',
+    parser.add_argument("symbol",
+        help="Symbol for the trading pair, eg. NEOETH for NEO / Ethereum trading orders",
     )
-    parser.add_argument('--format', '-f',
+    parser.add_argument("--format", "-f",
         choices=[
-            'json',
-            'plain',
+            "json",
+            "plain",
         ],
-        default='plain',
-        help='How to display the result',
+        default="plain",
+        help="How to display the result",
     )
-    parser.add_argument('--all', '-a',
-        action='store_true',
-        help='Show all orders. The default is to only show open orders',
+    parser.add_argument("--all", "-a",
+        action="store_true",
+        help="Show all orders. The default is to only show open orders",
     )
 
 
@@ -42,6 +42,6 @@ def command(args):
             key=lambda t: t[0],
         ))
         for row in orders
-        if args.all or row['status'] in statuses
+        if args.all or row["status"] in statuses
     ]
     print(cli_formatter.format(result, args.format))
