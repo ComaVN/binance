@@ -16,6 +16,7 @@ def main():
     commands = {
         'account',
         'order',
+        'trade',
     }
     for command in commands:
         module = importlib.import_module(__package__ + '.command.' + command)
