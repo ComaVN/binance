@@ -12,7 +12,7 @@ def add_arg_parser(subparsers):
         func=command,
     )
     parser.add_argument("symbol",
-        help="Symbol for the trading pair, eg. NEOETH for NEO / Ethereum trading orders",
+        help="Symbol for the trading pair, eg. NEOETH for NEO / Ethereum",
     )
     parser.add_argument("--format", "-f",
         choices=[

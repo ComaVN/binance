@@ -13,7 +13,9 @@ def add_arg_parser(subparsers):
         help="Order subcommand to execute",
     )
     subcommands = {
+        "book",
         "list",
+        "sell-2pct-up"
     }
     for subcommand in subcommands:
         module = importlib.import_module(__package__ + "." + subcommand)
