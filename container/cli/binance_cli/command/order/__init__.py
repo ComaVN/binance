@@ -14,8 +14,11 @@ def add_arg_parser(subparsers):
     )
     subcommands = {
         "book",
+        "buy",
+        "buy-2pct-down",
         "list",
-        "sell-2pct-up"
+        "sell",
+        "sell-2pct-up",
     }
     for subcommand in subcommands:
         module = importlib.import_module(__package__ + "." + subcommand)

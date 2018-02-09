@@ -12,7 +12,18 @@ def get_client():
     return Client(secret["api_key"], secret["api_secret"])
 
 def get_asset_from_trading_pair(trading_pair):
+    return split_trading_pair(trading_pair)[0]
+
+def get_market_from_trading_pair(trading_pair):
+    return split_trading_pair(trading_pair)[1]
+
+def split_trading_pair(trading_pair):
     for market in ("BTC", "ETH", "BNB", "USDT"):
-        m = re.search(r"^(\w+){market}$".format(market=market), trading_pair)
+        m = re.fullmatch(
+            r"([A-Z]+)[_. -]?({market})".format(market=market),
+            trading_pair,
+            flags=re.IGNORECASE,
+        )
         if m:
-            return m.group(1)
+            return (m.group(1).upper(), m.group(2).upper())
+    raise ValueError("Invalid trading pair:" + trading_pair)

@@ -6,8 +6,8 @@ from util import cli_formatter
 
 
 def add_arg_parser(subparsers):
-    parser = subparsers.add_parser("sell-2pct-up",
-        help="Place a sell order 2%% above the highest bid in the order book",
+    parser = subparsers.add_parser("buy-2pct-down",
+        help="Place a buy order 2%% below the lowest ask in the order book",
     )
     parser.set_defaults(
         func=command,
@@ -16,7 +16,7 @@ def add_arg_parser(subparsers):
         help="Symbol for the trading pair, eg. NEOETH for NEO / Ethereum",
     )
     parser.add_argument("quantity",
-        help="Amount of the asset to sell",
+        help="Amount of the asset to buy",
         type=Decimal,
         nargs="?",
         default=None,
@@ -40,32 +40,32 @@ def command(args):
         symbol=trading_pair,
         limit=5,
     )
-    highest_bid = Decimal(order_book["bids"][0][0])
-    price = (highest_bid * Decimal("1.02")).quantize(price_quantum)
+    lowest_ask = Decimal(order_book["asks"][0][0])
+    price = (lowest_ask * Decimal("0.98")).quantize(price_quantum)
     safeguards = []
     if price <= 0:
         safeguards.append("Price ({price}) not positive".format(
             price=price,
         ))
-    if price <= latest_price:
-        safeguards.append("Price ({price}) is not above latest price ({latest_price})".format(
+    if price >= latest_price:
+        safeguards.append("Price ({price}) is not below latest price ({latest_price})".format(
             price=price,
             latest_price=latest_price,
         ))
     if safeguards:
-        print("Failed to place sell order because safeguards failed:")
+        print("Failed to place buy order because safeguards failed:")
         print("\n".join(safeguards))
         return
     if args.quantity is None:
-        quantity = Decimal(client.get_asset_balance(asset)["free"])
+        quantity = (Decimal(client.get_asset_balance(market)["free"]) / price).quantize(quantity_quantum)
     else:
         quantity = Decimal(args.quantity)
-    print("Attempting to place sell order of {quantity} {asset} @ {price} {market} (highest bid: {highest_bid}, latest price {latest_price}),".format(
+    print("Attempting to place buy order of {quantity} {asset} @ {price} {market} (lowest ask: {lowest_ask}, latest price {latest_price}),".format(
         quantity=quantity,
         asset=asset,
         market=market,
         price=price,
-        highest_bid=highest_bid,
+        lowest_ask=lowest_ask,
         latest_price=latest_price,
     ))
     if args.force:
@@ -76,7 +76,7 @@ def command(args):
 
     result = func(
         symbol=trading_pair,
-        side=Client.SIDE_SELL,
+        side=Client.SIDE_BUY,
         type=Client.ORDER_TYPE_LIMIT,
         timeInForce='GTC',
         quantity=quantity,

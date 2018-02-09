@@ -20,7 +20,7 @@ def command(args):
     client = get_client()
     order_book = client.get_order_book(
         symbol=args.symbol.upper(),
-        limit=5,
+        limit=10,
     )
     order_book['asks'].reverse()
     for side in ("asks", "bids"):
