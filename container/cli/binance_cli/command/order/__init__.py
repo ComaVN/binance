@@ -16,6 +16,7 @@ def add_arg_parser(subparsers):
         "book",
         "buy",
         "buy-2pct-down",
+        "cancel",
         "list",
         "sell",
         "sell-2pct-up",
